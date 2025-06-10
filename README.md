@@ -36,3 +36,6 @@
 
 ## 🧩 Screenshots
 ![Password-Generator](assets/password-generator.png)
+
+## 💬 Feedback
+If you have any suggestions or issues, feel free to open an issue or submit a pull request.
