@@ -1,16 +1,38 @@
-# password_generator_app
+# 🔐 Flutter Password Generator
+#### A simple, elegant, and secure password generator built using Flutter(Web App). Easily create strong passwords with customizable options and a smooth UI.
+## ✨ Features
+📋 Copy to Clipboard – Instantly copy the generated password.
 
-A new Flutter project.
+🔢 Password Length Selector – Set the desired password length.
 
-## Getting Started
+🔣 Character Options:
 
-This project is a starting point for a Flutter application.
+--> 1.✅ Allow Numbers
 
-A few resources to get you started if this is your first Flutter project:
+--> 2.✅ Allow Uppercase Letters
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+--> 3.✅ Allow Lowercase Letters
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+--> 4.✅ Allow Symbols
+
+--> 5.✅ Allow Duplicates in password
+
+## 🚀 Getting Started
+### Prerequisites
+    Flutter SDK installed
+    Dart enabled
+    Any IDE like Android Studio, VS Code, etc.
+
+### Installation
+#### 1. Clone the repository
+    git clone https://github.com/vedantvisoliya/Flutter-Password-Generator-App.git
+    cd password_generator_app
+
+#### 2. Get the dependencies
+    flutter pub get
+
+#### 3. Run the app
+    flutter run
+
+## 🧩 Screenshots
+![Password-Generator](assets/password-generator.png)
