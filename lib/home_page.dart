@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:password_generator_app/generate.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,10 +18,13 @@ class _HomePageState extends State<HomePage> {
   bool allowLowercase = true;
   bool allowNumbers = false;
   bool allowSymbols = false;
-  bool allowDuplicates = false;
+  bool allowDuplicates = true;
 
   // password length controller
   TextEditingController lengthController = TextEditingController();
+
+  // instance of password generator
+  Generate generate = Generate();
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                             
                                 // copy icon
                                 IconButton(
-                                  onPressed: () {}, 
+                                  onPressed: () => generate.copyText(context, _genratedPassword ?? "Create Now."),
                                   icon: Icon(
                                     Icons.copy,
                                     color: Colors.grey.shade500,
@@ -150,12 +154,34 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Text(
-                              "Generate",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ), 
+                            child: GestureDetector(
+                              onTap: () {
+                                if (lengthController.text.isNotEmpty) {
+                                  setState(() {
+                                    _genratedPassword = generate.generatePassword(
+                                      passwordLength: int.parse(lengthController.text), 
+                                      isNumber: allowNumbers, 
+                                      isUpperCase: allowUpperCase, 
+                                      isLowerCase: allowLowercase, 
+                                      isSymbol: allowSymbols, 
+                                      isDuplicates: allowDuplicates, 
+                                      context: context
+                                    );
+                                  });
+                                }
+                                else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("Error: Enter password length between 6 and 32.")),
+                                  );
+                                }
+                              },
+                              child: Text(
+                                "Generate",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ), 
+                              ),
                             ),
                           ),
                         ),
