@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   // instance of password generator
   Generate generate = Generate();
+  bool isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -156,48 +157,61 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(width: 10.0),
 
                         // generate password button
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 25.0,
-                            vertical: 10.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 34, 35, 59),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                if (lengthController.text.isNotEmpty) {
-                                  setState(() {
-                                    _genratedPassword = generate
-                                        .generatePassword(
-                                          passwordLength: int.parse(
-                                            lengthController.text,
-                                          ),
-                                          isNumber: allowNumbers,
-                                          isUpperCase: allowUpperCase,
-                                          isLowerCase: allowLowercase,
-                                          isSymbol: allowSymbols,
-                                          isDuplicates: allowDuplicates,
-                                          context: context,
-                                        );
-                                  });
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        "Error: Enter password length between 6 and 32.",
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Text(
-                                "Generate",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
+                        GestureDetector(
+                          onTap: () {
+                            if (lengthController.text.isNotEmpty) {
+                              setState(() {
+                                _genratedPassword = generate.generatePassword(
+                                  passwordLength: int.parse(
+                                    lengthController.text,
+                                  ),
+                                  isNumber: allowNumbers,
+                                  isUpperCase: allowUpperCase,
+                                  isLowerCase: allowLowercase,
+                                  isSymbol: allowSymbols,
+                                  isDuplicates: allowDuplicates,
+                                  context: context,
+                                );
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Error: Enter password length between 6 and 32.",
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          child: MouseRegion(
+                            onEnter: (event) {
+                              setState(() {
+                                isHovered = true;
+                              });
+                            },
+                            onExit: (event) {
+                              setState(() {
+                                isHovered = false;
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 25.0,
+                                vertical: 10.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: isHovered
+                                    ? Colors.black
+                                    : Color.fromARGB(255, 34, 35, 59),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Generate",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ),
