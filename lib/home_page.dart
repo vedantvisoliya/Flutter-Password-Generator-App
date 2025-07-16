@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Container(
             width: 700,
-            height: 330,
+            height: screenWidth < 600 ? 510 : 330,
             // glass like transparency
             decoration: BoxDecoration(
               color: Colors.white.withValues(
@@ -221,221 +221,442 @@ class _HomePageState extends State<HomePage> {
                           ),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // column 1 ----------->
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // password length
-                                Row(
+                        child: screenWidth < 600
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Column(
                                   children: [
-                                    // text
-                                    Text(
-                                      "Password Length",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
-                                      ),
+                                    // password length
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // text
+                                        Text(
+                                          "Password Length",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+
+                                        const SizedBox(width: 10.0),
+
+                                        // text field
+                                        SizedBox(
+                                          width: 40,
+                                          height: 30,
+                                          child: TextField(
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                            ),
+                                            maxLength: 2,
+                                            keyboardType: TextInputType.number,
+                                            controller: lengthController,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.only(
+                                                bottom: 5.0,
+                                              ),
+                                              counterText: "",
+                                              filled: true,
+                                              fillColor: Colors.black,
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(
+                                                  4.0,
+                                                ), // Adjust value for more/less curve
+                                                borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 5.0),
+
+                                    // allow numbers
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // text
+                                        Text(
+                                          "Allow Numbers",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                        // check box
+                                        Checkbox(
+                                          value: allowNumbers,
+                                          onChanged: (bool? newValue) {
+                                            setState(() {
+                                              allowNumbers = newValue!;
+                                            });
+                                          },
+                                          activeColor: Colors.black,
+                                          side: BorderSide(
+                                            color: Colors.grey.shade900,
+                                          ),
+                                        ),
+                                      ],
                                     ),
 
-                                    const SizedBox(width: 10.0),
+                                    const SizedBox(height: 5.0),
 
-                                    // text field
-                                    SizedBox(
-                                      width: 40,
-                                      height: 30,
-                                      child: TextField(
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                        maxLength: 2,
-                                        keyboardType: TextInputType.number,
-                                        controller: lengthController,
-                                        decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.only(
-                                            bottom: 5.0,
+                                    // allow uppercase letters
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // text
+                                        Text(
+                                          "Allow UpperCase Letters",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w300,
                                           ),
-                                          counterText: "",
-                                          filled: true,
-                                          fillColor: Colors.black,
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              4.0,
-                                            ), // Adjust value for more/less curve
-                                            borderSide: BorderSide(
-                                              color: Colors.black,
+                                        ),
+                                        // check box
+                                        Checkbox(
+                                          value: allowUpperCase,
+                                          onChanged: (bool? newValue) {
+                                            setState(() {
+                                              allowUpperCase = newValue!;
+                                            });
+                                          },
+                                          activeColor: Colors.black,
+                                          side: BorderSide(
+                                            color: Colors.grey.shade900,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 5.0),
+
+                                    // allow lowercase letters
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // text
+                                        Text(
+                                          "Allow LowerCase Letters",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                        // check box
+                                        Checkbox(
+                                          value: allowLowercase,
+                                          onChanged: (bool? newValue) {
+                                            setState(() {
+                                              allowLowercase = newValue!;
+                                            });
+                                          },
+                                          activeColor: Colors.black,
+                                          side: BorderSide(
+                                            color: Colors.grey.shade900,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 5.0),
+
+                                    // allow symbols
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // text
+                                        Text(
+                                          "Allow Symbols",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                        // check box
+                                        Checkbox(
+                                          value: allowSymbols,
+                                          onChanged: (bool? newValue) {
+                                            setState(() {
+                                              allowSymbols = newValue!;
+                                            });
+                                          },
+                                          activeColor: Colors.black,
+                                          side: BorderSide(
+                                            color: Colors.grey.shade900,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 5.0),
+
+                                    // allow duplicates
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // text
+                                        Text(
+                                          "Allow Duplicates",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                        // check box
+                                        Checkbox(
+                                          value: allowDuplicates,
+                                          onChanged: (bool? newValue) {
+                                            setState(() {
+                                              allowDuplicates = newValue!;
+                                            });
+                                          },
+                                          activeColor: Colors.black,
+                                          side: BorderSide(
+                                            color: Colors.grey.shade900,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // column 1 ----------->
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // password length
+                                      Row(
+                                        children: [
+                                          // text
+                                          Text(
+                                            "Password Length",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
                                             ),
                                           ),
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
-                                ),
 
-                                const SizedBox(height: 10.0),
+                                          const SizedBox(width: 10.0),
 
-                                // allow numbers
-                                Row(
-                                  children: [
-                                    // text
-                                    Text(
-                                      "Allow Numbers",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
+                                          // text field
+                                          SizedBox(
+                                            width: 40,
+                                            height: 30,
+                                            child: TextField(
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                              ),
+                                              maxLength: 2,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: lengthController,
+                                              decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.only(
+                                                  bottom: 5.0,
+                                                ),
+                                                counterText: "",
+                                                filled: true,
+                                                fillColor: Colors.black,
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                        4.0,
+                                                      ), // Adjust value for more/less curve
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    // check box
-                                    Checkbox(
-                                      value: allowNumbers,
-                                      onChanged: (bool? newValue) {
-                                        setState(() {
-                                          allowNumbers = newValue!;
-                                        });
-                                      },
-                                      activeColor: Colors.black,
-                                      side: BorderSide(
-                                        color: Colors.grey.shade900,
-                                      ),
-                                    ),
-                                  ],
-                                ),
 
-                                const SizedBox(height: 10.0),
+                                      const SizedBox(height: 10.0),
 
-                                // allow uppercase letters
-                                Row(
-                                  children: [
-                                    // text
-                                    Text(
-                                      "Allow UpperCase Letters",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
+                                      // allow numbers
+                                      Row(
+                                        children: [
+                                          // text
+                                          Text(
+                                            "Allow Numbers",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          // check box
+                                          Checkbox(
+                                            value: allowNumbers,
+                                            onChanged: (bool? newValue) {
+                                              setState(() {
+                                                allowNumbers = newValue!;
+                                              });
+                                            },
+                                            activeColor: Colors.black,
+                                            side: BorderSide(
+                                              color: Colors.grey.shade900,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    // check box
-                                    Checkbox(
-                                      value: allowUpperCase,
-                                      onChanged: (bool? newValue) {
-                                        setState(() {
-                                          allowUpperCase = newValue!;
-                                        });
-                                      },
-                                      activeColor: Colors.black,
-                                      side: BorderSide(
-                                        color: Colors.grey.shade900,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
 
-                            // column 2 ----------->
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                // allow lowercase letters
-                                Row(
-                                  children: [
-                                    // text
-                                    Text(
-                                      "Allow LowerCase Letters",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                    // check box
-                                    Checkbox(
-                                      value: allowLowercase,
-                                      onChanged: (bool? newValue) {
-                                        setState(() {
-                                          allowLowercase = newValue!;
-                                        });
-                                      },
-                                      activeColor: Colors.black,
-                                      side: BorderSide(
-                                        color: Colors.grey.shade900,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                      const SizedBox(height: 10.0),
 
-                                const SizedBox(height: 10.0),
+                                      // allow uppercase letters
+                                      Row(
+                                        children: [
+                                          // text
+                                          Text(
+                                            "Allow UpperCase Letters",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          // check box
+                                          Checkbox(
+                                            value: allowUpperCase,
+                                            onChanged: (bool? newValue) {
+                                              setState(() {
+                                                allowUpperCase = newValue!;
+                                              });
+                                            },
+                                            activeColor: Colors.black,
+                                            side: BorderSide(
+                                              color: Colors.grey.shade900,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
 
-                                // allow symbols
-                                Row(
-                                  children: [
-                                    // text
-                                    Text(
-                                      "Allow Symbols",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
+                                  // column 2 ----------->
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      // allow lowercase letters
+                                      Row(
+                                        children: [
+                                          // text
+                                          Text(
+                                            "Allow LowerCase Letters",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          // check box
+                                          Checkbox(
+                                            value: allowLowercase,
+                                            onChanged: (bool? newValue) {
+                                              setState(() {
+                                                allowLowercase = newValue!;
+                                              });
+                                            },
+                                            activeColor: Colors.black,
+                                            side: BorderSide(
+                                              color: Colors.grey.shade900,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    // check box
-                                    Checkbox(
-                                      value: allowSymbols,
-                                      onChanged: (bool? newValue) {
-                                        setState(() {
-                                          allowSymbols = newValue!;
-                                        });
-                                      },
-                                      activeColor: Colors.black,
-                                      side: BorderSide(
-                                        color: Colors.grey.shade900,
-                                      ),
-                                    ),
-                                  ],
-                                ),
 
-                                const SizedBox(height: 10.0),
+                                      const SizedBox(height: 10.0),
 
-                                // allow duplicates
-                                Row(
-                                  children: [
-                                    // text
-                                    Text(
-                                      "Allow Duplicates",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w300,
+                                      // allow symbols
+                                      Row(
+                                        children: [
+                                          // text
+                                          Text(
+                                            "Allow Symbols",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          // check box
+                                          Checkbox(
+                                            value: allowSymbols,
+                                            onChanged: (bool? newValue) {
+                                              setState(() {
+                                                allowSymbols = newValue!;
+                                              });
+                                            },
+                                            activeColor: Colors.black,
+                                            side: BorderSide(
+                                              color: Colors.grey.shade900,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    // check box
-                                    Checkbox(
-                                      value: allowDuplicates,
-                                      onChanged: (bool? newValue) {
-                                        setState(() {
-                                          allowDuplicates = newValue!;
-                                        });
-                                      },
-                                      activeColor: Colors.black,
-                                      side: BorderSide(
-                                        color: Colors.grey.shade900,
+
+                                      const SizedBox(height: 10.0),
+
+                                      // allow duplicates
+                                      Row(
+                                        children: [
+                                          // text
+                                          Text(
+                                            "Allow Duplicates",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          // check box
+                                          Checkbox(
+                                            value: allowDuplicates,
+                                            onChanged: (bool? newValue) {
+                                              setState(() {
+                                                allowDuplicates = newValue!;
+                                              });
+                                            },
+                                            activeColor: Colors.black,
+                                            side: BorderSide(
+                                              color: Colors.grey.shade900,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                   ],
