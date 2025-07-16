@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Container(
             width: 700,
-            height: screenWidth < 600 ? 510 : 330,
+            height: screenWidth < 600 ? 530 : 330,
             // glass like transparency
             decoration: BoxDecoration(
               color: Colors.white.withValues(
